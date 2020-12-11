@@ -11,6 +11,8 @@
 // console.log(document.querySelector('.guess').value);
 
 const secretNumber = Math.trunc(Math.random() * 20) + 1;
+// score is part of 'state' of application
+let score = 20;
 
 document.querySelector('.number').textContent = secretNumber;
 
@@ -23,15 +25,27 @@ document.querySelector('.check').addEventListener('click', function () {
     document.querySelector('.message').textContent = '⛔️ No Number!';
     //when guess is correct
   } else if (guess === secretNumber) {
-    document.querySelector('.message').textContent = ' 🎉 Correct Number!';
+    document.querySelector('.message').textContent = '🎉 Correct Number!';
   } else if (guess > secretNumber) {
-    document.querySelector('.message').textContent = 'Too high!';
+    if (score > 1) {
+      document.querySelector('.message').textContent = '📈 Too high!';
+      score--;
+      document.querySelector('.score').textContent = score;
+      document.querySelector('.score').textContent = 0;
+    } else {
+      document.querySelector('.message').textContent = ' You lost the game!';
+    }
   } else if (guess < secretNumber) {
-    document.querySelector('.message').textContent = 'Too low!';
+    if (score > 1) {
+      document.querySelector('.message').textContent = '📉 Too low!';
+      score--;
+      document.querySelector('.score').textContent = score;
+      document.querySelector('.score').textContent = 0;
+    } else {
+      document.querySelector('.message').textContent = ' You lost the game!';
+    }
   }
 });
 
-// What happens when guess is correct?
-// What happens when guess is too low/high?
-
-// Start by defining secret number
+// now score needs to decrease by 1 if number guessed is too high or too low
+// need a check when score reaches/decrements to 0 (score > 1)
